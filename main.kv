@@ -1,0 +1,207 @@
+#:import dp kivy.metrics.dp
+
+<Label>:
+    font_name: "Maoken"
+
+<Button>:
+    font_name: "Maoken"
+
+<TextInput>:
+    font_name: "Maoken"
+
+<Spinner>:
+    font_name: "Maoken"
+
+ScreenManager:
+    MainScreen:
+        name: "main"
+    SubscriptionScreen:
+        name: "subscription"
+    SubscriptionListScreen:
+        name: "subscription_list"
+    ExpenseListScreen:
+        name: "expense_list"
+    ExpenseFormScreen:
+        name: "expense_form"
+
+<MainScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+
+        Label:
+            text: "🧾 記帳主畫面"
+            font_size: "24sp"
+            size_hint_y: None
+            height: dp(40)
+
+        Button:
+            text: "📋 訂閱管理"
+            size_hint_y: None
+            height: dp(50)
+            on_release: root.manager.current = "subscription_list"
+
+        Button:
+            text: "💰 支出管理"
+            size_hint_y: None
+            height: dp(50)
+            on_release: root.manager.current = "expense_list"
+
+        Widget:
+
+<SubscriptionScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+
+        Label:
+            text: "➕ 新增/編輯訂閱"
+            font_size: "20sp"
+
+        TextInput:
+            id: sub_name
+            hint_text: "訂閱名稱"
+            multiline: False
+
+        TextInput:
+            id: sub_amount
+            hint_text: "金額"
+            multiline: False
+            input_filter: "float"
+
+        Spinner:
+            id: sub_category
+            text: "選擇類別"
+            values: ["娛樂", "交通", "飲食", "其他"]
+
+        Spinner:
+            id: sub_cycle
+            text: "選擇週期"
+            values: ["每週", "每月", "每年"]
+
+        Button:
+            text: "選擇開始日期"
+            on_release: print("🔧 開啟日期選擇器（之後加）")
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(40)
+            spacing: dp(10)
+
+            Button:
+                text: "💾 儲存"
+                on_release: root.save_subscription()
+
+            Button:
+                text: "🧹 清除"
+                on_release: root.clear_fields()
+
+        Button:
+            text: "🔙 返回"
+            on_release: app.root.current = "subscription_list"
+
+<SubscriptionListScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+
+        Label:
+            text: "📋 訂閱清單"
+            font_size: "20sp"
+
+        ScrollView:
+            GridLayout:
+                id: sub_list_layout
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+
+        Button:
+            text: "➕ 新增訂閱"
+            on_release: app.root.current = "subscription"
+
+        Button:
+            text: "🔙 返回"
+            on_release: app.root.current = "main"
+
+<ExpenseListScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+
+        Label:
+            text: "📒 支出清單"
+            font_size: "20sp"
+
+        Spinner:
+            id: filter_category
+            text: "全部類別"
+            values: ["全部類別", "娛樂", "交通", "飲食", "其他"]
+            on_text: root.refresh_list()
+
+        ScrollView:
+            GridLayout:
+                id: expense_list_layout
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+
+        Button:
+            text: "➕ 新增支出"
+            on_release: app.root.current = "expense_form"
+
+        Button:
+            text: "🔙 返回"
+            on_release: app.root.current = "main"
+
+<ExpenseFormScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: dp(20)
+        spacing: dp(10)
+
+        Label:
+            text: "➕ 新增支出"
+            font_size: "20sp"
+
+        TextInput:
+            id: expense_name
+            hint_text: "支出名稱"
+            multiline: False
+
+        TextInput:
+            id: expense_amount
+            hint_text: "金額"
+            multiline: False
+            input_filter: "float"
+
+        Spinner:
+            id: expense_category
+            text: "選擇類別"
+            values: ["娛樂", "交通", "飲食", "其他"]
+
+        Spinner:
+            id: expense_method
+            text: "選擇付款方式"
+            values: ["現金", "信用卡", "轉帳", "其他"]
+
+        Button:
+            text: "📅 選擇日期（預設今日）"
+            on_release: print("🔧 日期選擇器後補")
+
+        BoxLayout:
+            size_hint_y: None
+            height: dp(40)
+            spacing: dp(10)
+
+            Button:
+                text: "💾 儲存"
+                on_release: root.save_expense()
+
+            Button:
+                text: "🔙 返回"
+                on_release: app.root.current = "expense_list"

@@ -1,0 +1,125 @@
+#:import THEME ui_config.THEME
+#:import FONT ui_config.FONT
+
+<HomeScreen>:
+    name_input: name_input
+    amount_input: amount_input
+    category_spinner: category_spinner
+    payment_spinner: payment_spinner
+    date_picker: date_picker
+    history_label: history_label
+    progress_bar: progress_bar
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 15
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: THEME["bg_color"]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: '記帳系統'
+            font_name: FONT["family"]
+            font_size: FONT["size"] + 6
+            color: THEME["text_color"]
+            size_hint_y: None
+            height: 40
+
+        TextInput:
+            id: name_input
+            hint_text: '名稱'
+            multiline: False
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            foreground_color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        TextInput:
+            id: amount_input
+            hint_text: '金額'
+            input_filter: 'float'
+            multiline: False
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            foreground_color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        Spinner:
+            id: category_spinner
+            text: '選擇類別'
+            values: ['飲食', '娛樂', '交通', '其他']
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        Spinner:
+            id: payment_spinner
+            text: '付款方式'
+            values: ['現金', '信用卡', '轉帳']
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        TextInput:
+            id: date_picker
+            hint_text: '日期（預設今日）'
+            text: '2025/06/29'
+            readonly: True
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            foreground_color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        Button:
+            text: '儲存支出'
+            size_hint_y: None
+            height: 50
+            background_color: THEME["highlight"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+            on_press: root.save_expense()
+
+        Label:
+            id: history_label
+            text: '最近記錄：'
+            size_hint_y: None
+            height: 30
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        ProgressBar:
+            id: progress_bar
+            value: 25
+            max: 100
+            size_hint_y: None
+            height: 20
+            canvas.before:
+                Color:
+                    rgba: THEME["progress_color"]
+                Rectangle:
+                    pos: self.pos
+                    size: (self.width * self.value / self.max, self.height)
+Button:
+    text: '設定'
+    size_hint_y: None
+    height: 40
+    on_press:
+        app.root.current = 'settings'

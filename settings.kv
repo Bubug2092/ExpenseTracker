@@ -1,0 +1,61 @@
+<SettingsScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 15
+        spacing: 10
+
+        Label:
+            text: '設定'
+            font_size: 24
+            size_hint_y: None
+            height: 40
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            Label:
+                text: '字體大小'
+            Slider:
+                min: 10
+                max: 36
+                value: root.font_size
+                on_value: root.font_size = int(self.value)
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            CheckBox:
+                active: root.show_budget_bar
+                on_active: root.show_budget_bar = self.active
+            Label:
+                text: '顯示預算進度條'
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            CheckBox:
+                active: root.show_history_log
+                on_active: root.show_history_log = self.active
+            Label:
+                text: '顯示歷史紀錄'
+
+        BoxLayout:
+            size_hint_y: None
+            height: 40
+            CheckBox:
+                active: root.show_settings_button
+                on_active: root.show_settings_button = self.active
+            Label:
+                text: '顯示設定按鈕'
+
+        Button:
+            text: '套用設定'
+            size_hint_y: None
+            height: 50
+            on_press: root.apply_settings()
+Button:
+    text: '回主頁'
+    size_hint_y: None
+    height: 40
+    on_press:
+        app.root.current = 'home'

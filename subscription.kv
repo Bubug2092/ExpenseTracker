@@ -1,0 +1,119 @@
+#:import THEME ui_config.THEME
+#:import FONT ui_config.FONT
+#:import CATEGORIES ui_config.CATEGORIES
+
+<SubscriptionScreen>:
+    name_input: name_input
+    amount_input: amount_input
+    category_spinner: category_spinner
+    payment_spinner: payment_spinner
+    cycle_spinner: cycle_spinner
+    start_date_btn: start_date_btn
+    next_pay_date_btn: next_pay_date_btn
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 15
+        spacing: 10
+        canvas.before:
+            Color:
+                rgba: THEME["bg_color"]
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Label:
+            text: '訂閱管理'
+            font_name: FONT["family"]
+            font_size: FONT["size"] + 6
+            color: THEME["text_color"]
+            size_hint_y: None
+            height: 40
+
+        TextInput:
+            id: name_input
+            hint_text: '名稱'
+            multiline: False
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            foreground_color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        TextInput:
+            id: amount_input
+            hint_text: '金額'
+            input_filter: 'float'
+            multiline: False
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            foreground_color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        Spinner:
+            id: category_spinner
+            text: CATEGORIES[0]
+            values: CATEGORIES
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        Spinner:
+            id: payment_spinner
+            text: '現金'
+            values: ['現金', '信用卡', '轉帳']
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        Spinner:
+            id: cycle_spinner
+            text: '每月'
+            values: ['每月', '每季', '每年']
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+
+        Button:
+            id: start_date_btn
+            text: '開始日期'
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+            on_press: root.on_start_date_press()
+
+        Button:
+            id: next_pay_date_btn
+            text: '下次付款日'
+            size_hint_y: None
+            height: 40
+            background_color: THEME["input_bg"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+            on_press: root.on_next_pay_date_press()
+
+        Button:
+            text: '儲存訂閱'
+            size_hint_y: None
+            height: 50
+            background_color: THEME["highlight"]
+            color: THEME["text_color"]
+            font_name: FONT["family"]
+            font_size: FONT["size"]
+            on_press: root.save_subscription()
